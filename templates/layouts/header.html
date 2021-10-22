@@ -1,0 +1,189 @@
+{% load static %}
+{% load i18n %}
+{% load mytags %}
+{% block extra_css %}
+    <style>
+    svg
+    {
+        width:18px;
+        height:18px;
+        margin:0 2px 0 4px;
+    }
+    *:hover{
+        color: #181880 !important;
+    }
+    </style>
+{% endblock %}
+<header class="main_menu home_menu">
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-12">
+<nav class="navbar navbar-expand-lg navbar-light">
+<a class="navbar-brand" href="/"> <img src="{% static 'img/xlogo.png.pagespeed.ic.zI2SKI010u.png' %}" alt="logo"> </a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="menu_icon"><i class="fas fa-bars"></i></span>
+</button>
+<div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+<ul class="navbar-nav">
+<li class="nav-item">
+<a class="nav-link" href="/">
+    {% trans 'Home' %}
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'products:list' %}">
+    {% trans 'Shop' %}
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="{% url 'posts:list' %}">{% trans 'Blog' %}</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'pages:contact' %}">{% trans 'Contact' %}</a>
+</li>
+     <li class="nav-item dropdown">
+         {% get_current_language as lang %}
+         {% get_available_languages as langs %}
+                            <span class="nav-link dropdown-toggle">{{ lang|upper }}</span>
+                            <div class="dropdown-menu" aria-labelledby="dropdown09">
+                       {% for l in langs %}
+                           {% if l.0 != lang %}
+                                <a class="dropdown-item" href="{% get_url_lang request l.0 %}">
+                                    {{ l.0| upper }}
+                                </a>
+                           {% endif %}
+                       {% endfor %}
+
+                            </div>
+                        </li>
+</ul>
+</div>
+<div class="hearer_icon d-flex mt-1">
+<a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+<a href="{% url 'products:wishlist' %}"><i class="ti-heart"></i></a>
+<div class="dropdown cart ml-3">
+<a class="dropdown-toggle" href="{% url 'products:cart' %}" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="{% url 'products:cart' %}">
+<svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m472 452c0 11.046-8.954 20-20 20h-20v20c0 11.046-8.954 20-20 20s-20-8.954-20-20v-20h-20c-11.046 0-20-8.954-20-20s8.954-20 20-20h20v-20c0-11.046 8.954-20 20-20s20 8.954 20 20v20h20c11.046 0 20 8.954 20 20zm0-312v192c0 11.046-8.954 20-20 20s-20-8.954-20-20v-172h-40v60c0 11.046-8.954 20-20 20s-20-8.954-20-20v-60h-192v60c0 11.046-8.954 20-20 20s-20-8.954-20-20v-60h-40v312h212c11.046 0 20 8.954 20 20s-8.954 20-20 20h-232c-11.046 0-20-8.954-20-20v-352c0-11.046 8.954-20 20-20h60.946c7.945-67.477 65.477-120 135.054-120s127.109 52.523 135.054 120h60.946c11.046 0 20 8.954 20 20zm-121.341-20c-7.64-45.345-47.176-80-94.659-80s-87.019 34.655-94.659 80z"/></g><span class="cart_counter">{% get_cart_count request %}</span></svg>
+    <span  class="price">| ${% get_cart_sum request %} |</span>
+    </a>
+</a>
+</div>
+{% if request.user.is_authenticated %}
+    <a href="{% url 'auth_logout' %}"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="122.775px" height="122.776px" viewBox="0 0 122.775 122.776" style="enable-background:new 0 0 122.775 122.776;"
+	 xml:space="preserve">
+<g>
+	<path d="M86,28.074v-20.7c0-3.3-2.699-6-6-6H6c-3.3,0-6,2.7-6,6v3.9v78.2v2.701c0,2.199,1.3,4.299,3.2,5.299l45.6,23.601
+		c2,1,4.4-0.399,4.4-2.7v-23H80c3.301,0,6-2.699,6-6v-32.8H74v23.8c0,1.7-1.3,3-3,3H53.3v-30.8v-19.5v-0.6c0-2.2-1.3-4.3-3.2-5.3
+		l-26.9-13.8H71c1.7,0,3,1.3,3,3v11.8h12V28.074z"/>
+	<path d="M101.4,18.273l19.5,19.5c2.5,2.5,2.5,6.2,0,8.7l-19.5,19.5c-2.5,2.5-6.301,2.601-8.801,0.101
+		c-2.399-2.399-2.1-6.4,0.201-8.8l8.799-8.7H67.5c-1.699,0-3.4-0.7-4.5-2c-2.8-3-2.1-8.3,1.5-10.3c0.9-0.5,2-0.8,3-0.8h34.1
+		c0,0-8.699-8.7-8.799-8.7c-2.301-2.3-2.601-6.4-0.201-8.7C95,15.674,98.9,15.773,101.4,18.273z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+        {% trans 'Log Out' %}</a>
+    <a class="ml-3" href="{% url 'profile:home' %}">{{ user.username }}</a>
+{% else %}
+    <a href="{% url 'auth_login' %}"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m465.535156.320312c-.53125-.042968-.980468-.320312-1.535156-.320312h-229.332031c-35.285157 0-64 28.714844-64 64v21.332031c0 11.777344 9.554687 21.335938 21.332031 21.335938s21.332031-9.558594 21.332031-21.335938v-21.332031c0-11.753906 9.578125-21.332031 21.335938-21.332031h99.390625l-6.507813 2.175781c-17.277343 5.972656-28.882812 22.25-28.882812 40.488281v320h-64c-11.757813 0-21.335938-9.578125-21.335938-21.332031v-42.667969c0-11.773437-9.554687-21.332031-21.332031-21.332031s-21.332031 9.558594-21.332031 21.332031v42.667969c0 35.285156 28.714843 64 64 64h64v21.332031c0 23.53125 19.132812 42.667969 42.664062 42.667969 4.566407 0 8.898438-.660156 13.589844-2.113281l128.171875-42.730469c17.300781-5.972656 28.90625-22.25 28.90625-40.488281v-384c0-24.875-21.441406-44.375-46.464844-42.347657zm0 0"/><path d="m228.414062 198.25-85.332031-85.332031c-6.101562-6.101563-15.273437-7.9375-23.253906-4.628907-7.957031 3.304688-13.160156 11.09375-13.160156 19.710938v64h-85.335938c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h85.335938v64c0 8.617187 5.203125 16.402343 13.160156 19.710937 7.980469 3.304688 17.152344 1.472656 23.253906-4.628906l85.332031-85.335938c8.34375-8.339843 8.34375-21.820312 0-30.164062zm0 0"/></svg>{% trans 'Sign In' %}</a>
+    <a href="{% url 'registration_register' %}"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve">
+<g>
+	<g>
+		<path d="M269.272,310.198c86.177-0.005,117.184-86.291,125.301-157.169C404.572,65.715,363.282,0,269.272,0
+			C175.274,0,133.963,65.71,143.97,153.029C152.095,223.907,183.093,310.204,269.272,310.198z"/>
+		<path d="M457.707,346.115c2.773,0,5.528,0.083,8.264,0.235c-4.101-5.85-8.848-11.01-14.403-15.158
+			c-16.559-12.359-38.005-16.414-56.964-23.864c-9.229-3.625-17.493-7.226-25.251-11.326
+			c-26.184,28.715-60.329,43.736-100.091,43.74c-39.749,0-73.891-15.021-100.072-43.74c-7.758,4.101-16.024,7.701-25.251,11.326
+			c-18.959,7.451-40.404,11.505-56.964,23.864c-28.638,21.375-36.039,69.46-41.854,102.26c-4.799,27.076-8.023,54.707-8.964,82.209
+			c-0.729,21.303,9.789,24.29,27.611,30.721c22.315,8.048,45.356,14.023,68.552,18.921c44.797,9.46,90.973,16.729,136.95,17.054
+			c22.278-0.159,44.601-1.956,66.792-4.833c-16.431-23.807-26.068-52.645-26.068-83.695
+			C309.995,412.378,376.258,346.115,457.707,346.115z"/>
+		<path d="M457.707,375.658c-65.262,0-118.171,52.909-118.171,118.171S392.444,612,457.707,612s118.172-52.909,118.172-118.171
+			C575.878,428.566,522.969,375.658,457.707,375.658z M509.407,514.103h-31.425v31.424c0,11.198-9.077,20.276-20.274,20.276
+			c-11.198,0-20.276-9.078-20.276-20.276v-31.424h-31.424c-11.198,0-20.276-9.077-20.276-20.276
+			c0-11.198,9.077-20.276,20.276-20.276h31.424v-31.424c0-11.198,9.078-20.276,20.276-20.276c11.198,0,20.274,9.078,20.274,20.276
+			v31.424h31.425c11.198,0,20.276,9.078,20.276,20.276C529.682,505.027,520.606,514.103,509.407,514.103z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+{% trans 'Sign Up' %}</a>
+{% endif %}
+</div>
+</nav>
+</div>
+</div>
+</div>
+<div class="search_input" id="search_input_box">
+<div class="container ">
+<form action="{% url 'products:list' %}" class="d-flex justify-content-between search-inner">
+<input name="q" type="text" class="form-control" id="search_input" placeholder="Search Here">
+<button type="submit" class="btn"></button>
+<span class="ti-close" id="close_search" title="Close Search"></span>
+</form>
+
+</div>
+</div>
+</header>
+

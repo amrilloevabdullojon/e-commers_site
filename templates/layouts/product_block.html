@@ -1,0 +1,21 @@
+{% load mytags %}
+{% load static %}
+{% load i18n %}
+<div class="single_product_item">
+    <img style="width: 100%" src="{{ product.image.url }}" alt="">
+    <div class="single_product_text">
+        <h4>{{ product.title }}</h4>
+        <h3>${{ product.real_price }}{% if product.is_discount %} <span class="small" ><strike>{{ product.price }}</strike></span>{% endif %}</h3>
+        <a href="{% url 'products:create_wishlist' pk=product.pk %}?next={{ request.path }}?{{ request.GET.urlencode }}"><img style="width:1.2vw;" src="{% get_heart_icon request product %}" alt=""></a>
+        <a style="font-size: 1vw" href="{% url 'products:add-to-cart' pk=product.pk %}?next={{ request.path }}?{{ request.GET.urlencode }}" class="add-cart">
+            {% if product|in_cart:request %}
+                - Remove From Cart
+            {% else %}
+                + Add To Cart
+            {% endif %}
+        </a>
+        <a style="font-size: .9vw" href="{% url 'products:detail' pk=product.pk %}">
+            go
+        </a>
+    </div>
+</div>

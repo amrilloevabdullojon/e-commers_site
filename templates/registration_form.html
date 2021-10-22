@@ -1,0 +1,75 @@
+{% extends 'layouts/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section"></h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+							<div class="text w-100">
+								<h2>{% trans 'Welcome to Registration' %}</h2>
+								<p>{% trans 'Do you have an account?' %}</p>
+								<a href="#" class="btn btn-white btn-outline-white">{% trans 'Sign In' %}</a>
+							</div>
+			      </div>
+						<div class="login-wrap p-4 p-lg-5">
+			      	<div class="d-flex">
+			      		<div class="w-100">
+			      			<h3 class="mb-4">{% trans 'Sign Up' %}</h3>
+			      		</div>
+{#								<div class="w-100">#}
+{#									<p class="social-media d-flex justify-content-end">#}
+{#										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>#}
+{#										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>#}
+{#									</p>#}
+{#								</div>#}
+			      	</div>
+							<form method="post" class="signin-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="text" value="{{ next }}" />
+			      		<div class="form-group mb-3">
+			      			<label class="label" for="name">{% trans 'Username' %}</label>
+			      			<input name="username" type="text" class="form-control" placeholder="{% trans 'Username' %}" required>
+			      		</div>
+		            <div class="form-group mb-3">
+		            	<label class="label" for="email">{% trans 'E-mail' %}</label>
+		              <input name="email" type="text" class="form-control" placeholder="{% trans 'your-email@gmail.com' %}" required>
+		            </div>
+                   <div class="form-group mb-3">
+		            	<label class="label" for="password">{% trans 'Password' %}</label>
+		              <input name="password1" type="password" class="form-control" placeholder="{% trans 'Password' %}" required>
+		            </div>
+                    <div class="form-group mb-3">
+		            	<label class="label" for="password">{% trans 'Confirm Password' %}</label>
+		              <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm Password' %}" required>
+		            </div>
+		            <div class="form-group">
+		            	<button type="submit" class="form-control btn btn-primary submit px-3">{% trans 'Sign Up' %}</button>
+		            </div>
+{#		            <div class="form-group d-md-flex">#}
+{#		            	<div class="w-50 text-left">#}
+{#			            	<label class="checkbox-wrap checkbox-primary mb-0">Remember Me#}
+{#									  <input type="checkbox" checked>#}
+{#									  <span class="checkmark"></span>#}
+{#										</label>#}
+{#									</div>#}
+{#									<div class="w-50 text-md-right">#}
+{#										<a href="#">Forgot Password</a>#}
+{#									</div>#}
+{#		            </div>#}
+		          </form>
+		        </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+

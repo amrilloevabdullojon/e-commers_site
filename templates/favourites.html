@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load mytags %}
+{% block content %}
+        <section class="cat_product_area section_padding">
+        <div class="container">
+            <div class="row">
+                    <div class="row align-items-center latest_product_inner">
+
+                        {% for product in object_list %}
+                        <div class="col-lg-4 col-sm-6">
+                            {% include 'layouts/product_block.html' %}
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-12">
+                            <div class="pageination">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                                <i class="ti-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% for page in page_obj.paginator.page_range %}
+                                        <li class="page-item">
+                                            <a class="page-link" style="{% if page == page_obj.number %}background: #ff3368; color: #fff !important;{% endif %}" href="?page={{ page }}">{{ page }}</a>
+                                        </li>
+                                        {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                                <i class="ti-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+    </section>
+{% endblock %}

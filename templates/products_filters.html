@@ -1,0 +1,63 @@
+{% load mytags %}
+<div class="left_sidebar_area" id="clearfilter">
+
+ <aside class="left_widgets p_filter_widgets price_rangs_aside">
+<div class="l_w_title">
+{#<h3>Price Filter</h3>#}
+    <div class="my-2">
+        <a class="text-dark" href="{% url 'products:list' %}#clearfilter">Clear Filter</a>
+    </div>
+</div>
+<div class="widgets_inner">
+<div class="range_item">
+
+{#<input type="text" class="js-range-slider" />#}
+</div>
+</div>
+</aside>
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3 >Categories</h3>
+                            </div>
+
+                            <div class="widgets_inner">
+                                <ul class="list">
+
+                                    {% for category in categories %}
+                                    <li>
+                                        <a {% if request.GET.cat == category.pk|stringformat:'i' %}class="a-active"{% endif %} onclick="addUrlParameter('cat', '{{ category.pk }}')">{{ category.title }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </aside>
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3>Brands</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    <li>
+                                         {% for brand in brands %}
+                                             <li><a {% if request.GET.brand == brand.pk|stringformat:'i' %}class="a-active"{% endif %} onclick="addUrlParameter('brand', '{{ brand.pk }}')">{{ brand.title }}</a></li>
+                                         {% endfor %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3>Color</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    <li>
+                                        {% for col in color %}
+                                             <li><a {% if request.GET.brand == col.pk|stringformat:'i' %}class="a-active"{% endif %} onclick="addUrlParameter('color', '{{ col.pk }}')">{{ col.title }}</a></li>
+                                         {% endfor %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+
